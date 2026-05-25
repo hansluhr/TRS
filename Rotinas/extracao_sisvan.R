@@ -1,11 +1,12 @@
 # Extração base dos dados -------------------------------------------------
 
+
 #Carregando pacotes
 library(basedosdados)
 library(tidyverse)
 set_billing_id("juntarcnpj")
 #Declaração pasta raiz.
-here::i_am("SISVAN/sisvan.R")
+here::i_am("Rotinas/extracao_sisvan.R")
 
 
 base <- 
@@ -60,7 +61,7 @@ read_sql("SELECT * FROM `basedosdados.br_ms_sisvan.microdados` LIMIT 100") -> x
 
 
 #Agregação das Querys de interesse
-tibb
+tibble::add_case()
 
 
 
