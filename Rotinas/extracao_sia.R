@@ -22,7 +22,7 @@ SELECT
     cid_secundario_categoria,
     cid_secundario_subcategoria
 FROM `basedosdados.br_ms_sia.producao_ambulatorial`
-WHERE ano_realizacao_procedimento BETWEEN 2012 AND 2022
+WHERE ano_realizacao_procedimento = 2012
   AND id_processamento_ambulatorial IN ( 
       '0305010018',
       '0305010026',
