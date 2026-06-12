@@ -8,7 +8,6 @@ con = dbConnect(drv, dbname = "sis_datasus",
                 host = "psql13rj-saude.ipea.gov.br", port = 5432,
                 user = "p224552695", password = "Do355ju290*")
 
-
 #Check de tabelas disponíveis
 sort(dbListTables(con))
 
@@ -34,43 +33,44 @@ sia |>
 # 03.05.01.002-6 - DIÁLISE PERITONEAL INTERMITENTE DPI (MÁXIMO 2 Sessões por semana --------
 qrySim = paste0("SELECT *
 FROM public.sia_br_pa 
-WHERE pa_docorig = 'P' AND pa_proc_id = '0305010026' ")
+
+WHERE pa_docorig = 'P' AND 
+
+      pa_proc_id = '0305010026' AND
+      
+      pa_cidpri LIKE 'N18%' ")
 
 t0=Sys.time()
-sia=dbGetQuery(con,qrySim)
+sia=dbGetQuery(con,qrySim);gc()
 t1=Sys.time()
 duracao1 = t1-t0
 duracao1
 
 
+sia |>
+  rio::export(x = _,
+              "dialise_apac_n180.xlsx")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 03.05.01.009-3 - HEMODIÁLISE (MÁXIMO 1 SESSÃO POR SEMANA - EXCEP --------
-
+# 03.05.01.009-3 - HEMODIÁLISE (MÁXIMO 1 SESSÃO POR SEMANA - EXCEPCIONALIDADE) --------
 qrySim = paste0("SELECT *
 FROM public.sia_br_pa 
-WHERE pa_docorig = 'S' AND pa_proc_id = '0305010093' ")
+
+WHERE pa_docorig = 'S' AND 
+
+      pa_proc_id = '0305010093' ")
 
 t0=Sys.time()
-sia=dbGetQuery(con,qrySim)
+sia=dbGetQuery(con,qrySim);gc()
 t1=Sys.time()
 duracao1 = t1-t0
 duracao1
 
-select *
-  from public.sia_br_pa 
-where pa_docorig = 'S' and  pa_proc_id = '0305010093'
+sia |>
+  rio::export(x = _,
+              "hemodiálise_secund.csv")
+
+
+
+
+
+
