@@ -69,8 +69,20 @@ sia |>
   rio::export(x = _,
               "hemodiálise_secund.csv")
 
+# 03.05.01.010-7 - HEMODIÁLISE (MÁXIMO 3 SESSÕES POR SEMANA) --------------
+qrySim = paste0("SELECT *
+FROM public.sia_br_pa 
 
+WHERE pa_docorig = 'P' AND 
 
+      pa_proc_id = '0305010107' AND
+      
+      pa_cidpri LIKE 'N18%' ")
 
+t0=Sys.time()
+sia=dbGetQuery(con,qrySim);gc()
+t1=Sys.time()
+duracao1 = t1-t0
+duracao1
 
 
