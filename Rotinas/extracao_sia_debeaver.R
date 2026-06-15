@@ -85,4 +85,95 @@ t1=Sys.time()
 duracao1 = t1-t0
 duracao1
 
+sia |>
+  rio::export(x = _,
+              "hemodiálise.csv")
+
+
+# 03.05.01.011-5 - HEMODIÁLISE EM PACIENTE COM SOROLOGIA POSITIVA  --------
+qrySim = paste0("SELECT *
+FROM public.sia_br_pa 
+
+WHERE pa_docorig = 'P' AND 
+
+      pa_proc_id = '0305010115' AND
+      
+      pa_cidpri LIKE 'N18%' ")
+
+t0=Sys.time()
+sia=dbGetQuery(con,qrySim);gc()
+t1=Sys.time()
+duracao1 = t1-t0
+duracao1
+
+
+sia |>
+  rio::export(x = _,
+              "hemodiálise_sorologia.csv")
+
+
+
+# 03.05.01.012-3 - HEMODIÁLISE EM PACIENTE COM SOROLOGIA POSITIVA  --------
+qrySim = paste0("SELECT *
+FROM public.sia_br_pa 
+
+WHERE pa_docorig = 'S' AND 
+
+      pa_proc_id = '0305010123' ")
+
+t0=Sys.time()
+sia=dbGetQuery(con,qrySim);gc()
+t1=Sys.time()
+duracao1 = t1-t0
+duracao1
+
+sia |>
+  rio::export(x = _,
+              "hemodiálise_sorologia_secundario.csv")
+
+
+
+
+# 03.05.01.016-6 - MANUTENÇÃO E ACOMPANHAMENTO DOMICILIAR DE PACIE --------
+qrySim = paste0("SELECT *
+FROM public.sia_br_pa 
+
+WHERE pa_docorig = 'P' AND 
+
+      pa_proc_id = '0305010166' AND
+      
+      pa_cidpri LIKE 'N18%' ")
+
+t0=Sys.time()
+sia=dbGetQuery(con,qrySim);gc()
+t1=Sys.time()
+duracao1 = t1-t0
+duracao1
+
+sia |>
+  rio::export(x = _,
+              "manutencao.csv")
+
+
+
+# 03.05.01.018-2 - TREINAMENTO DE PACIENTE SUBMETIDO A DIALISE PER --------
+qrySim = paste0("SELECT *
+FROM public.sia_br_pa 
+
+WHERE pa_docorig = 'P' AND 
+
+      pa_proc_id = '0305010182' AND
+      
+      pa_cidpri LIKE 'N18%' ")
+
+t0=Sys.time()
+sia=dbGetQuery(con,qrySim);gc()
+t1=Sys.time()
+duracao1 = t1-t0
+duracao1
+
+sia |>
+  rio::export(x = _,
+              "treinamento.csv")
+
 
