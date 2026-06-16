@@ -177,3 +177,44 @@ sia |>
               "treinamento.csv")
 
 
+
+
+
+
+
+
+
+
+
+# Internações -------------------------------------------------------------
+library(duckplyr)
+con <- DBI::dbConnect(duckdb::duckdb(),
+                      dbdir = paste0(dirname(getwd()),"/bases/sih/duckdb/sih_2008_2025.duckdb"), #Nome do database que armazena o SIH
+                      read_only = FALSE)
+
+DBI::dbListTables(con)
+
+data <- 
+  tbl(con, "sih")
+
+### TRATAMENTO DE INTERCORRÊNCIA EM PACIENTE RENAL CRÔNICO SOB TRATAMENTO DIALÍTICO ( POR DIA)
+data |>
+  filter(cod_proc_rea == 0305010174 & diag_princ %in% c("N188","N180","N189") )  |>
+  collect() |> rio::export(x = _,
+                           "sih_tratamento_renal.csv")
+  
+sih |>
+rio::export(x = _,
+              "sih_tratamento_renal.csv")
+
+
+
+### TRATAMENTO DA DOENÇA RENAL CRÔNICA - DRC
+data |>
+  filter(cod_proc_rea == 0305020056 & diag_princ %in% c("N188","N180","N189") ) |> 
+  collect() |> rio::export(x = _,
+                           "sih_tratamento_renal_cronica_sih.csv")
+
+
+DBI::dbDisconnect(con) ; gc()
+rm(list = ls()); gc()
