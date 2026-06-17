@@ -232,5 +232,19 @@ data |>
                            "sih_tratamento_renal_cronica_sih.csv")
 
 
+
+
+#Internações icsap. Pedido paloma. Não está relacionado ao TRS
+data |>
+  summarise(n = n(), .by = c(ano_inter, cod_munic_int, def_munic_int,  icsap) ) |>
+  arrange(cod_munic_int) |>
+  collect() |>
+  rio::export(x = _,
+              "icsap_munics.csv")
+
+
+
+
+
 DBI::dbDisconnect(con) ; gc()
 rm(list = ls()); gc()
