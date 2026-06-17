@@ -5,8 +5,8 @@ library("RPostgreSQL")
 
 drv = dbDriver("PostgreSQL")
 con = dbConnect(drv, dbname = "sis_datasus",
-                host = "psql13rj-saude.ipea.gov.br", port = 5432,
-                user = "p224552695", password = "Do355ju290*")
+                host = "", port = 5432,
+                user = "", password = "")
 
 #Check de tabelas disponíveis
 sort(dbListTables(con))
@@ -178,7 +178,23 @@ sia |>
 
 
 
+# 03.05.02.005-6 - TRATAMENTO DA DOENÇA RENAL CRÔNICA - DRC ---------------
+qrySim = paste0("SELECT *
+FROM public.sia_br_pa 
 
+WHERE pa_proc_id = '0305020056' AND
+      
+      pa_cidpri LIKE 'N18%' ")
+
+t0=Sys.time()
+sia=dbGetQuery(con,qrySim);gc()
+t1=Sys.time()
+duracao1 = t1-t0
+duracao1
+
+sia |>
+  rio::export(x = _,
+              "sia_tratamento_renal_cronica_sih.csv")
 
 
 
